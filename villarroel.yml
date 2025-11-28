@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  villarroel:
+    image: ghcr.io/${GH_OWNER:-${GITHUB_REPOSITORY_OWNER:-your-gh-user}}/villarroel:${IMAGE_VERSION:-3.0.0}
+    environment:
+      - FLASK_ENV=production
+    deploy:
+      replicas: 1
+      update_config:
+        order: start-first
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.villarroel.entrypoints=http"
+        - "traefik.http.routers.villarroel.rule=Host(`villarroel.byronrm.com`)"
+        - "traefik.http.middlewares.villarroel-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.villarroel.middlewares=villarroel-https-redirect"
+        - "traefik.http.routers.villarroel-secure.entrypoints=https"
+        - "traefik.http.routers.villarroel-secure.rule=Host(`villarroel.byronrm.com`)"
+        - "traefik.http.routers.villarroel-secure.tls=true"
+        - "traefik.http.routers.villarroel-secure.tls.certresolver=http"
+        - "traefik.http.routers.villarroel-secure.service=villarroel"
+        - "traefik.http.services.villarroel.loadbalancer.server.port=5000"
+        - "traefik.docker.network=traefik-public"
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceso Villarroel</title>
+  <style>
+    :root {
+      --bg: #0b1021;
+      --panel: #0f162d;
+      --ink: #f4f5fb;
+      --muted: #93a1c4;
+      --accent: #7cf0c4;
+      --accent-2: #4da3ff;
+      --danger: #ff6b6b;
+      --success: #7df1c5;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(124,240,196,0.12), transparent 25%),
+                  radial-gradient(circle at 80% 0%, rgba(77,163,255,0.14), transparent 25%),
+                  var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+    .shell {
+      width: 100%;
+      max-width: 960px;
+      background: linear-gradient(135deg, rgba(15,22,45,0.9), rgba(10,14,32,0.92));
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 15% 15%, rgba(124,240,196,0.08), transparent 25%),
+                  radial-gradient(circle at 85% 20%, rgba(77,163,255,0.08), transparent 25%);
+      pointer-events: none;
+    }
+    header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .subtitle {
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.5;
+      max-width: 620px;
+    }
+    .pill {
+      background: rgba(124,240,196,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(124,240,196,0.35);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+    }
+    .grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      z-index: 1;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 10px;
+      background: rgba(124,240,196,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(124,240,196,0.25);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      font-weight: 700;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.2px;
+    }
+    input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--ink);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus {
+      outline: none;
+      border-color: rgba(124,240,196,0.7);
+      box-shadow: 0 0 0 3px rgba(124,240,196,0.15);
+    }
+    button {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: none;
+      color: #0a0d1c;
+      font-weight: 800;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      letter-spacing: 0.2px;
+      box-shadow: 0 10px 30px rgba(124,240,196,0.35);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
+    .note {
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 18px;
+      margin-top: 8px;
+    }
+    .note.error { color: var(--danger); }
+    .note.ok { color: var(--success); }
+    .token {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-top: 10px;
+      word-break: break-all;
+      color: var(--ink);
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div>
+        <div class="title">Panel de Acceso Villarroel</div>
+        <div class="subtitle">Registra nuevos usuarios y prueba el login contra los endpoints `/api/register` y `/api/login`. Todo ocurre en memoria para la demo.</div>
+      </div>
+      <div class="pill">CI/CD · GHCR · VPS</div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div class="tag">Registro</div>
+        <label for="reg-user">Usuario</label>
+        <input id="reg-user" placeholder="ej: ana" autocomplete="username" />
+        <label for="reg-pass">Clave</label>
+        <input id="reg-pass" type="password" placeholder="min 6 caracteres" autocomplete="new-password" />
+        <button id="btn-register">Crear cuenta</button>
+        <div id="reg-status" class="note">Esperando datos...</div>
+      </div>
+
+      <div class="card">
+        <div class="tag">Login</div>
+        <label for="login-user">Usuario</label>
+        <input id="login-user" placeholder="ej: ana" autocomplete="username" />
+        <label for="login-pass">Clave</label>
+        <input id="login-pass" type="password" placeholder="******" autocomplete="current-password" />
+        <button id="btn-login">Entrar</button>
+        <div id="login-status" class="note">Esperando...</div>
+        <div id="login-token" class="token" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const regUser = document.getElementById("reg-user");
+    const regPass = document.getElementById("reg-pass");
+    const regStatus = document.getElementById("reg-status");
+    const loginUser = document.getElementById("login-user");
+    const loginPass = document.getElementById("login-pass");
+    const loginStatus = document.getElementById("login-status");
+    const loginToken = document.getElementById("login-token");
+    const regBtn = document.getElementById("btn-register");
+    const loginBtn = document.getElementById("btn-login");
+
+    const postJson = async (url, body) => {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error en la API");
+      return data;
+    };
+
+    const registerUser = async () => {
+      regStatus.textContent = "Enviando...";
+      regStatus.className = "note";
+      try {
+        const data = await postJson("/api/register", {
+          username: regUser.value,
+          password: regPass.value
+        });
+        regStatus.textContent = `Usuario creado: ${data.username}`;
+        regStatus.className = "note ok";
+      } catch (err) {
+        regStatus.textContent = err.message;
+        regStatus.className = "note error";
+      }
+    };
+
+    const loginUserFn = async () => {
+      loginStatus.textContent = "Verificando...";
+      loginStatus.className = "note";
+      loginToken.style.display = "none";
+      try {
+        const data = await postJson("/api/login", {
+          username: loginUser.value,
+          password: loginPass.value
+        });
+        loginStatus.textContent = `Bienvenido ${data.username}`;
+        loginStatus.className = "note ok";
+        loginToken.style.display = "block";
+        loginToken.textContent = `Token: ${data.token}`;
+      } catch (err) {
+        loginStatus.textContent = err.message;
+        loginStatus.className = "note error";
+      }
+    };
+
+    regBtn.addEventListener("click", registerUser);
+    loginBtn.addEventListener("click", loginUserFn);
+  </script>
+</body>
+</html>
