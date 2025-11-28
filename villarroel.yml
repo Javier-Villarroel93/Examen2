@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   villarroel:
-    image: ghcr.io/${GH_OWNER:-${GITHUB_REPOSITORY_OWNER:-your-gh-user}}/villarroel:${IMAGE_VERSION:-3.0.0}
+    image: ghcr.io/${GH_OWNER:-your-gh-user}/villarroel:${IMAGE_VERSION:-3.0.0}
     environment:
       - FLASK_ENV=production
     deploy:
